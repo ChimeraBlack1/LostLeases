@@ -1,4 +1,3 @@
-WellsPortfolio(Oct2019).xlsx
-DLLPortfolio(Oct2019).xlsx
-SherpaReport.xlsm
-LeasesLost.xls
+*.xls
+*.xlsx
+*.xlsm

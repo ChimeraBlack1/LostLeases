@@ -45,6 +45,7 @@ SherpaReportAssetPriceCol = 11
 SherpaReportCustomerNameCol = 2
 SherpaCustomerAddyCol = 12
 SherpaReportCustomerModelCol = 9
+SherpaReportTestFunderCol = 6
 
 for x in range(1, endOfSherpaSheet):
   # get serial to test from Sherpa Report
@@ -55,6 +56,7 @@ for x in range(1, endOfSherpaSheet):
     testCustomerName = SherpaSheet.cell_value(x,SherpaReportCustomerNameCol)
     testCustomerAddy = SherpaSheet.cell_value(x,SherpaCustomerAddyCol)
     testCustomerModel = SherpaSheet.cell_value(x,SherpaReportCustomerModelCol)
+    testFunder = SherpaSheet.cell_value(x,SherpaReportTestFunderCol)
     testSerial = int(testSerial)
   except:
     testSerial = str(testSerial)
@@ -100,11 +102,7 @@ for x in range(1, endOfSherpaSheet):
       worksheet.write(x,4, testCustomerAddy)
       continue
     if testSerial == wellsSerial:
-      try:
-        worksheet.write(x,0, testSerial)
-        worksheet.write(x,1, wellsAssetPrice)
-      except:
-        continue
+      found = True
       break
   
   if found == False:
@@ -113,6 +111,7 @@ for x in range(1, endOfSherpaSheet):
     worksheet.write(x,2, testCustomerName)
     worksheet.write(x,3, testCustomerModel)
     worksheet.write(x,4, testCustomerAddy)
+    worksheet.write(x,5, testFunder)
 
 workbook.save(NewWorkbookName)
 print("saved: " + str(NewWorkbookName))
