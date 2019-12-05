@@ -3,12 +3,12 @@ import xlrd
 import xlwt
 
 #open PREVIOUS month Sherpa Report
-prevReport = "SherpaReport(Sep).xlsm"
+prevReport = "SherpaReport(Oct).xlsm"
 prevwb = xlrd.open_workbook(prevReport)
 prevSheet = prevwb.sheet_by_index(0)
 
 #open CURRENT month Sherpa Report
-currentReport = "SherpaReport(Oct).xlsm"
+currentReport = "SherpaReport(Nov).xlsm"
 currentwb = xlrd.open_workbook(currentReport)
 currentSheet = currentwb.sheet_by_index(0)
 
@@ -33,6 +33,7 @@ newWorkbookPointer = 0
 if(endOfThisMonthSheet < endOfPrevMonthSheet):
   print("careful, this month has less total assets than last month. Check the code.")
 
+#LOST
 for x in range(1, endOfPrevMonthSheet):
 
   if endOfThisMonthSheet > endOfPrevMonthSheet:
