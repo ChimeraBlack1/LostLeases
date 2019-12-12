@@ -18,10 +18,11 @@ worksheet = workbook.add_sheet('Leases Lost')
 NewWorkbookName = "LeasesLost.xls"
 
 #Globals
-endOfPrevMonthSheet = 3451
-endOfThisMonthSheet = 3499
+endOfPrevMonthSheet = 3499
+endOfThisMonthSheet = 3569
 newWorkbookPointer = 0
 #Sherpa
+SherpaReportAssetVolType = 8
 SherpaReportSerialCol = 10
 SherpaReportAssetPriceCol = 11
 SherpaReportCustomerNameCol = 2
@@ -51,6 +52,7 @@ for x in range(1, endOfPrevMonthSheet):
     testCustomerAddy = prevSheet.cell_value(x,SherpaCustomerAddyCol)
     testCustomerModel = prevSheet.cell_value(x,SherpaReportCustomerModelCol)
     testFunder = prevSheet.cell_value(x,SherpaReportTestFunderCol)
+    testAssetVol = prevSheet.cell_value(x,SherpaReportAssetVolType)
     testSerial = int(testSerial)
   except:
     testSerial = str(testSerial)
@@ -69,6 +71,7 @@ for x in range(1, endOfPrevMonthSheet):
       worksheet.write(newWorkbookPointer, 3, testCustomerModel)
       worksheet.write(newWorkbookPointer, 4, testCustomerAddy)
       worksheet.write(newWorkbookPointer, 5, testFunder)
+      worksheet.write(newWorkbookPointer, 6, testAssetVol)
       newWorkbookPointer = newWorkbookPointer + 1
       continue
     if testSerial == otherTestSerial:
@@ -86,6 +89,7 @@ for x in range(1, endOfPrevMonthSheet):
     worksheet.write(newWorkbookPointer, 3, testCustomerModel)
     worksheet.write(newWorkbookPointer, 4, testCustomerAddy)
     worksheet.write(newWorkbookPointer, 5, testFunder)
+    worksheet.write(newWorkbookPointer, 6, testAssetVol)
     newWorkbookPointer = newWorkbookPointer + 1 
 
 workbook.save(NewWorkbookName)
