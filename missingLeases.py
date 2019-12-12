@@ -11,16 +11,29 @@ def Device_Speed(speed):
   }
   return device_speed.get(speed)
 
-# Take a filename as Input.  If it doesn't work, try again until it does work.
+def last_day(monthName):
+  last_day = {
+    "January": "1-31-2019",
+    "February": "2-28-2019",
+    "March": "3-31-2019",
+    "April": "4-30-2019",
+    "May": "5-31-2019",
+    "June": "6-30-2019",
+    "July": "7-31-2019",
+    "August": "8-31-2019",
+    "September": "9-30-2019",
+    "October": "10-31-2019",
+    "November": "11-30-2019",
+    "December": "12-31-2019",
+  }
+  return last_day.get(monthName)
+
+# PREVIOUS Month's Report
 goodFile = False
 
 while goodFile == False:
   fileToRead = input("Please enter the name of the PREVIOUS month's report)> ")
-  if fileToRead == "":
-    prevReport = ("ProdMAPP.xlsx")
-    goodFile = True
-    wb = xlrd.open_workbook(prevReport)
-  elif fileToRead == "exit" or fileToRead == "quit":
+  if fileToRead == "exit" or fileToRead == "quit":
     print("ok, bye!")
     exit()
   else:
@@ -32,21 +45,12 @@ while goodFile == False:
     except:
       print("I can't find that file, try again...")
 
-#open PREVIOUS month Sherpa Report
-# prevReport = "SherpaReport(Oct).xlsm"
-# prevwb = xlrd.open_workbook(prevReport)
-# prevSheet = prevwb.sheet_by_index(0)
-
-# Take a filename as Input.  If it doesn't work, try again until it does work.
+# CURRENT month's report
 goodReport = False
 
 while goodReport == False:
   fileToRead2 = input("Please enter the name of the THIS month's report)> ")
-  if fileToRead2 == "":
-    currentReport = ("ProdMAPP.xlsx")
-    goodReport = True
-    currentwb = xlrd.open_workbook(currentReport)
-  elif fileToRead2 == "exit" or fileToRead2 == "quit":
+  if fileToRead2 == "exit" or fileToRead2 == "quit":
     print("ok, bye!")
     exit()
   else:
@@ -58,12 +62,7 @@ while goodReport == False:
     except:
       print("I can't find that file, try again...")
 
-#open CURRENT month Sherpa Report
-# currentReport = "SherpaReport(Nov).xlsm"
-# currentwb = xlrd.open_workbook(currentReport)
-# currentSheet = currentwb.sheet_by_index(0)
-
-# Take a filename as Input.  If it doesn't work, try again until it does work.
+# PREVIOUS Sheet row count
 PrevMonthSheetNumberGood = False
 
 while PrevMonthSheetNumberGood == False:
@@ -73,13 +72,13 @@ while PrevMonthSheetNumberGood == False:
     exit()
   else:
     try:
-      endOfPrevMonthSheet = endOfPrevMonthSheetInput
+      endOfPrevMonthSheet = int(endOfPrevMonthSheetInput)
       PrevMonthSheetNumberGood = True
     except:
       print("Not the right number, try again...)>")
 
 
-# Take a filename as Input.  If it doesn't work, try again until it does work.
+# CURRENT sheet row count
 ThisMonthSheetNumberGood = False
 
 while ThisMonthSheetNumberGood == False:
@@ -89,35 +88,47 @@ while ThisMonthSheetNumberGood == False:
     exit()
   else:
     try:
-      endOfThisMonthSheet = endOfThisMonthSheetInput
+      endOfThisMonthSheet = int(endOfThisMonthSheetInput)
       ThisMonthSheetNumberGood = True
     except:
       print("Not the right number, try again...)>")
 
-# Take a filename as Input.  If it doesn't work, try again until it does work.
+# Which Month
 goodMonth = False
+thisMonth = "default"
 
 while goodMonth == False:
-  endOfThisMonthSheetInput = input("What Month is this?)> ")
-  if endOfThisMonthSheetInput == "exit" or endOfThisMonthSheetInput == "quit":
+  whatMonth = input("What Month is this?)> ")
+  if whatMonth == "exit" or whatMonth == "quit":
     print("ok, bye!")
     exit()
   else:
     try:
-      endOfThisMonthSheet = endOfThisMonthSheetInput
+      thisMonth = whatMonth
       goodMonth = True
     except:
-      print("Not the right number, try again...)>")
+      print("Sorry that's not a month...)>")
 
 #write to workbook
 workbook = xlwt.Workbook()
 worksheet = workbook.add_sheet('Leases Lost')
 NewWorkbookName = "LeasesLost.xls"
 
+#Titles
+worksheet.write(0, 0, "Serial Number")
+worksheet.write(0, 1, "Asset Price")
+worksheet.write(0, 2, "Customer Name")
+worksheet.write(0, 3, "Model Name")
+worksheet.write(0, 4, "Address")
+worksheet.write(0, 5, "Funder")
+worksheet.write(0, 6, "Device Speed")
+worksheet.write(0, 7, "Device Speed Name")
+worksheet.write(0, 8, "Month")
+worksheet.write(0, 9, "Month Name")
+
 #Globals
-#endOfPrevMonthSheet = 3499
-#endOfThisMonthSheet = 3569
-newWorkbookPointer = 0
+newWorkbookPointer = 1
+
 #Sherpa
 SherpaReportAssetVolType = 8
 SherpaReportSerialCol = 10
@@ -126,7 +137,6 @@ SherpaReportCustomerNameCol = 2
 SherpaCustomerAddyCol = 12
 SherpaReportCustomerModelCol = 9
 SherpaReportTestFunderCol = 6
-newWorkbookPointer = 0
 
 if(endOfThisMonthSheet < endOfPrevMonthSheet):
   print("careful, this month has less total assets than last month. Check the code.")
@@ -188,8 +198,9 @@ for x in range(1, endOfPrevMonthSheet):
     worksheet.write(newWorkbookPointer, 5, testFunder)
     worksheet.write(newWorkbookPointer, 6, testAssetVol)
     worksheet.write(newWorkbookPointer, 7, Device_Speed(testAssetVol))
-    newWorkbookPointer = newWorkbookPointer + 1 
-
+    worksheet.write(newWorkbookPointer, 8, last_day(thisMonth))
+    worksheet.write(newWorkbookPointer, 9, thisMonth)
+    newWorkbookPointer = newWorkbookPointer + 1
 
 workbook.save(NewWorkbookName)
 print("saved: " + str(NewWorkbookName))

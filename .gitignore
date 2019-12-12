@@ -1,6 +1,8 @@
-*.xls
-*.xlsx
 *.xlsm
+*.xlsx
+*.xlsx
+*.xls
+*.csv
+October/
 old/
 old scripts/
-October/
