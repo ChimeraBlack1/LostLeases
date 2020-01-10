@@ -138,8 +138,8 @@ SherpaCustomerAddyCol = 12
 SherpaReportCustomerModelCol = 9
 SherpaReportTestFunderCol = 6
 
-if(endOfThisMonthSheet < endOfPrevMonthSheet):
-  print("careful, this month has less total assets than last month. Check the code.")
+# if(endOfThisMonthSheet < endOfPrevMonthSheet):
+#   print("careful, this month has less total assets than last month. Check the code.")
 
 #LOST
 for x in range(1, endOfPrevMonthSheet):
