@@ -33,6 +33,7 @@ def FindLastRow(sheet, row=0, col=0):
     
   return rowCount
 
+
 def FindLastRowZeroIndex(sheet, row=0, col=0):
   """
   Find last populated row from starting point, returns 0 index value
@@ -105,3 +106,33 @@ def GetStatusDetails(wb, row=0, col=0):
     "renewalDate": renewalDate,
   }
   return acctStatus
+
+def Newb():
+  """
+  Create and return a new workbook object
+  """
+  workbook = xlwt.Workbook()
+  return workbook
+
+def News(workbook, name="New Sheet"):
+  worksheet = workbook.add_sheet(name)
+  return worksheet
+
+
+def Save(wb, NewWorkbookName="New Workbook.xlsx"):
+  """
+  Save the output in a workbook
+  """
+  NewWorkbookName = str(NewWorkbookName + ".xls")
+  wb.save(NewWorkbookName)
+  print("Saved: " + str(NewWorkbookName))
+
+
+def FindMissing(sheet1, sheet2):
+  """
+  Find missing data from sheet 1 in sheet 2
+  """
+  return
+
+
+
