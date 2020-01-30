@@ -1,15 +1,24 @@
 import excelCompare as ec
 
-prev = ec.OpenSheet("Wells(Nov).xlsx")
-curr = ec.OpenSheet("Wells(Dec).xlsx")
-newWBName = "Missing Leases Dec 2019"
+prev = ec.OpenSheet("DLLPortfolio(Nov).xlsx")
+curr = ec.OpenSheet("DLLPortfolio(Dec).xlsx")
+newWBName = "Missing Leases DLL Dec 2019"
 
-serialColumn1 = 2
-serialColumn2 = 4
-priceCol = 4
-customerCol = 8
-modelCol = 3
-addressCol = 11
+#Wells --
+# serialColumn1 = 2
+# serialColumn2 = 4
+# priceCol = 4
+# customerCol = 8
+# modelCol = 3
+# addressCol = 11
+
+#DLL
+serialColumn1 = 22
+serialColumn2 = 22
+priceCol = 21
+customerCol = 5
+modelCol = 24
+addressCol = 6
 rowStart = 1
 totalRows1 = ec.FindLastRow(prev)
 totalRows2 = ec.FindLastRow(curr)
@@ -49,9 +58,3 @@ for i in range (1, totalRows1):
     totalFound = totalFound + 1
 
 ec.Save(newb, newWBName)
-
-#write to workbook
-# workbook = xlwt.Workbook()
-# worksheet = workbook.add_sheet('Leases Lost')
-# NewWorkbookName = "LeasesLost.xls
-# workbook.save(NewWorkbookName)
